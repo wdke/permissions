@@ -1,0 +1,12 @@
+server:
+  port: 8880
+
+spring:
+  application:
+    name: permissions-server #指定服务名
+  profiles:
+    active: dev
+
+logging:
+  config: classpath:logback.xml
+

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!---->
+<mapper namespace="com.wdk.permissions.dao.SysRoleMenuMapper">
+	<!--返回值映射-->
+	<resultMap id="BaseResultMap" type="com.wdk.permissions.model.SysRoleMenu">
+		<id column="id" jdbcType="INTEGER" property="id"/>
+		<result column="role_id" jdbcType="INTEGER" property="roleId"/>
+		<result column="menu_id" jdbcType="INTEGER" property="menuId"/>
+		<result column="remark" jdbcType="VARCHAR" property="remark"/>
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+	</resultMap>
+	<!--查询数据库表开始-->
+	<sql id="Base_Tables_Sql">
+		sys_role_menu
+	</sql>
+	<!--查询数据库表结束-->
+	<!--查询字段开始-->
+	<sql id="Base_Column_Sql">
+		id,role_id,menu_id,remark,create_time,update_time
+	</sql>
+	<!--查询字段结束-->
+	<!--查询条件开始-->
+	<sql id="Base_Where_Sql">
+		<!--权限ID-->
+		<if test="id != null">
+			and id=#{id,jdbcType=INTEGER}
+		</if>
+		<!--角色ID-->
+		<if test="roleId != null">
+			and role_id=#{roleId,jdbcType=INTEGER}
+		</if>
+		<!--菜单路径ID-->
+		<if test="menuId != null">
+			and menu_id=#{menuId,jdbcType=INTEGER}
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			and remark=#{remark,jdbcType=VARCHAR}
+		</if>
+		<!--创建时间-->
+		<if test="createTime != null">
+			and create_time=#{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<!--更新时间-->
+		<if test="updateTime != null">
+			and update_time=#{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	<!--查询条件结束-->
+	<!--查询条件开始-->
+	<sql id="Base_Where_Db_Sql">
+		<!--权限ID-->
+		<if test="id != null">
+			and id=#{id,jdbcType=INTEGER}
+		</if>
+		<!--角色ID-->
+		<if test="role_id != null">
+			and role_id=#{role_id,jdbcType=INTEGER}
+		</if>
+		<!--菜单路径ID-->
+		<if test="menu_id != null">
+			and menu_id=#{menu_id,jdbcType=INTEGER}
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			and remark=#{remark,jdbcType=VARCHAR}
+		</if>
+		<!--创建时间-->
+		<if test="create_time != null">
+			and create_time=#{create_time,jdbcType=TIMESTAMP}
+		</if>
+		<!--更新时间-->
+		<if test="update_time != null">
+			and update_time=#{update_time,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	<!--查询条件结束-->
+	<!--根据条件查询列表开始-->
+	<select id="selectListByMapReturnMap" parameterType="java.util.Map" resultType="java.util.Map">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>
+			<include refid="Base_Where_Db_Sql"/>
+		</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--根据条件查询列表开始-->
+	<select id="selectListByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>
+			<include refid="Base_Where_Sql"/>
+		</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--根据条件查询列表开始-->
+	<select id="list" parameterType="com.wdk.permissions.model.SysRoleMenu" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>
+			<include refid="Base_Where_Sql"/>
+		</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--新增表数据开始-->
+	<insert id="insert" parameterType="com.wdk.permissions.model.SysRoleMenu">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		insert into sys_role_menu (
+			role_id,menu_id,remark,
+			create_time,update_time
+		)
+		values (
+			
+			#{roleId,jdbcType=INTEGER},#{menuId,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP}
+		)
+	
+	</insert>
+	<!--新增表数据结束-->
+	<!--新增表不为空数据开始-->
+	<insert id="insertSelective" parameterType="com.wdk.permissions.model.SysRoleMenu">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		insert into sys_role_menu (
+		<!--角色ID-->
+		<if test="roleId != null">
+			role_id,
+		</if>
+		<!--菜单路径ID-->
+		<if test="menuId != null">
+			menu_id,
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			remark=#{remark,jdbcType=VARCHAR},
+		</if>
+		<!--创建时间-->
+		<if test="createTime != null">
+			create_time,
+		</if>
+		<!--更新时间-->
+		<if test="updateTime != null">
+			update_time,
+		</if>
+		)
+		values (
+		<!--角色ID-->
+		<if test="roleId != null">
+			#{roleId,jdbcType=INTEGER},
+		</if>
+		<!--菜单路径ID-->
+		<if test="menuId != null">
+			#{menuId,jdbcType=INTEGER},
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			remark=#{remark,jdbcType=VARCHAR},
+		</if>
+		<!--创建时间-->
+		<if test="createTime != null">
+			#{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<!--更新时间-->
+		<if test="updateTime != null">
+			#{updateTime,jdbcType=TIMESTAMP},
+		</if>
+		)
+	
+	</insert>
+	<!--新增表不为空数据结束-->
+	<!--批量新增表数据开始-->
+	<insert id="batchInsert" parameterType="java.util.List">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		<if test="list != null and list.size != 0">
+			insert into sys_role_menu (
+				role_id,menu_id,remark,
+				create_time,update_time
+			)
+			values
+			<foreach collection="list" item="item" index="index" separator=",">
+				(
+				#{item.roleId,jdbcType=INTEGER},#{item.menuId,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},#{item.updateTime,jdbcType=TIMESTAMP}
+				)
+			</foreach>
+		</if>
+	</insert>
+	<!--批量新增表数据结束-->
+	<!--根据条件查询列表开始-->
+	<select id="selectByPrimaryKey" parameterType="com.wdk.permissions.model.SysRoleMenu" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--根据主键更新数据开始-->
+	<update id="updateByPrimaryKey" parameterType="com.wdk.permissions.model.SysRoleMenu">
+		update sys_role_menu
+		set  
+			role_id=#{roleId,jdbcType=INTEGER},
+			menu_id=#{menuId,jdbcType=INTEGER},
+			remark=#{remark,jdbcType=VARCHAR},
+			create_time=#{createTime,jdbcType=TIMESTAMP},
+			update_time=#{updateTime,jdbcType=TIMESTAMP}
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</update>
+	<!--根据主键更新数据结束-->
+	<!--根据主键更新不为空数据开始-->
+	<!--更新不为空-->
+	<update id="updateSelectiveByPrimaryKey" parameterType="com.wdk.permissions.model.SysRoleMenu">
+		update sys_role_menu
+		<set>
+			<!--角色ID-->
+			<if test="roleId != null">
+				role_id=#{roleId,jdbcType=INTEGER},
+			</if>
+			<!--菜单路径ID-->
+			<if test="menuId != null">
+				menu_id=#{menuId,jdbcType=INTEGER},
+			</if>
+			<!--备注-->
+			<if test="remark != null and remark != ''">
+				remark=#{remark,jdbcType=VARCHAR},
+			</if>
+			<!--创建时间-->
+			<if test="createTime != null">
+				create_time=#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<!--更新时间-->
+			<if test="updateTime != null">
+				update_time=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<!--主键查询-->
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</update>
+	<!--根据主键更新不为空数据结束-->
+	<!--根据主键存在就更新，不存在就新增开始-->
+	<!--批量新增，存在就更新，不存在就插入-->
+	<insert id="batchInsertUpdate" parameterType="java.util.List">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		<if test="list !=null and list.size != 0">
+			insert into  sys_role_menu(
+				role_id,menu_id,remark,
+				create_time,update_time
+			)
+			values 
+ 			<foreach collection="list" item="item" index="index" separator=",">
+				(
+				#{item.roleId,jdbcType=INTEGER},#{item.menuId,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},#{item.updateTime,jdbcType=TIMESTAMP})
+			</foreach>
+				ON DUPLICATE KEY UPDATE
+				role_id=#{roleId,jdbcType=INTEGER},
+				menu_id=#{menuId,jdbcType=INTEGER},
+				remark=#{remark,jdbcType=VARCHAR},
+				create_time=#{createTime,jdbcType=TIMESTAMP},
+				update_time=#{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</insert>
+	<!--根据主键存在就更新，不存在就新增结束-->
+	<!--批量更新开始-->
+	<update id="batchUpdate">
+		<if test="list != null and list.size != 0">
+			update sys_role_menu
+			<trim prefix="set" suffixOverrides=",">
+				<!--角色ID-->
+				<trim prefix=" roleId = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.roleId!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.roleId,jdbcType=INTEGER}
+						</if>
+					</foreach>
+				</trim>
+				<!--菜单路径ID-->
+				<trim prefix=" menuId = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.menuId!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.menuId,jdbcType=INTEGER}
+						</if>
+					</foreach>
+				</trim>
+				<!--备注-->
+				<trim prefix=" remark = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.remark!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.remark,jdbcType=VARCHAR}
+						</if>
+					</foreach>
+				</trim>
+				<!--创建时间-->
+				<trim prefix=" createTime = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.createTime!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.createTime,jdbcType=TIMESTAMP}
+						</if>
+					</foreach>
+				</trim>
+				<!--更新时间-->
+				<trim prefix=" updateTime = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.updateTime!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.updateTime,jdbcType=TIMESTAMP}
+						</if>
+					</foreach>
+				</trim>
+			</trim>
+			<where>
+				<foreach collection="list" separator="or" item="item" index="index">
+					id=#{item.id,jdbcType=INTEGER}
+				</foreach>
+			</where>
+		</if>
+	</update>
+	<!--批量更新结束-->
+	<!--删除表数据开始-->
+	<delete id="deleteByPrimaryKey" parameterType="java.util.Map">
+		delete from sys_role_menu
+		<!--主键查询-->
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</delete>
+	<!--删除表数据结束-->
+	<!--删除表数据开始-->
+	<delete id="deleteBySelect" parameterType="com.wdk.permissions.model.SysRoleMenu">
+		delete from sys_role_menu
+		<where>
+			<include refid="Base_Where_Sql"/>
+		</where>
+	</delete>
+	<!--删除表数据结束-->
+</mapper>

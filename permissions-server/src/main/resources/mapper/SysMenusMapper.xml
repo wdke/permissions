@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--系统菜单路径-->
+<mapper namespace="com.wdk.permissions.dao.SysMenusMapper">
+	<!--返回值映射-->
+	<resultMap id="BaseResultMap" type="com.wdk.permissions.model.SysMenus">
+		<id column="id" jdbcType="INTEGER" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="url" jdbcType="VARCHAR" property="url"/>
+		<result column="host" jdbcType="VARCHAR" property="host"/>
+		<result column="parent" jdbcType="INTEGER" property="parent"/>
+		<result column="parents" jdbcType="VARCHAR" property="parents"/>
+		<result column="remark" jdbcType="VARCHAR" property="remark"/>
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+	</resultMap>
+	<!--查询数据库表开始-->
+	<sql id="Base_Tables_Sql">
+		sys_menus
+	</sql>
+	<!--查询数据库表结束-->
+	<!--查询字段开始-->
+	<sql id="Base_Column_Sql">
+		id,name,url,host,parent,parents,remark,create_time,update_time
+	</sql>
+	<!--查询字段结束-->
+	<!--查询条件开始-->
+	<sql id="Base_Where_Sql">
+		<!--菜单ID-->
+		<if test="id != null">
+			and id=#{id,jdbcType=INTEGER}
+		</if>
+		<!--菜单名称-->
+		<if test="name != null and name != ''">
+			and name=#{name,jdbcType=VARCHAR}
+		</if>
+		<!--菜单地址-->
+		<if test="url != null and url != ''">
+			and url=#{url,jdbcType=VARCHAR}
+		</if>
+		<!--所属服务器-->
+		<if test="host != null and host != ''">
+			and host=#{host,jdbcType=VARCHAR}
+		</if>
+		<!--父节点-->
+		<if test="parent != null">
+			and parent=#{parent,jdbcType=INTEGER}
+		</if>
+		<!--所有父节点-->
+		<if test="parents != null and parents != ''">
+			and parents=#{parents,jdbcType=VARCHAR}
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			and remark=#{remark,jdbcType=VARCHAR}
+		</if>
+		<!--创建时间-->
+		<if test="createTime != null">
+			and create_time=#{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<!--更新时间-->
+		<if test="updateTime != null">
+			and update_time=#{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	<!--查询条件结束-->
+	<!--查询条件开始-->
+	<sql id="Base_Where_Db_Sql">
+		<!--菜单ID-->
+		<if test="id != null">
+			and id=#{id,jdbcType=INTEGER}
+		</if>
+		<!--菜单名称-->
+		<if test="name != null and name != ''">
+			and name=#{name,jdbcType=VARCHAR}
+		</if>
+		<!--菜单地址-->
+		<if test="url != null and url != ''">
+			and url=#{url,jdbcType=VARCHAR}
+		</if>
+		<!--所属服务器-->
+		<if test="host != null and host != ''">
+			and host=#{host,jdbcType=VARCHAR}
+		</if>
+		<!--父节点-->
+		<if test="parent != null">
+			and parent=#{parent,jdbcType=INTEGER}
+		</if>
+		<!--所有父节点-->
+		<if test="parents != null and parents != ''">
+			and parents=#{parents,jdbcType=VARCHAR}
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			and remark=#{remark,jdbcType=VARCHAR}
+		</if>
+		<!--创建时间-->
+		<if test="create_time != null">
+			and create_time=#{create_time,jdbcType=TIMESTAMP}
+		</if>
+		<!--更新时间-->
+		<if test="update_time != null">
+			and update_time=#{update_time,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	<!--查询条件结束-->
+	<!--根据条件查询列表开始-->
+	<select id="selectListByMapReturnMap" parameterType="java.util.Map" resultType="java.util.Map">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>
+			<include refid="Base_Where_Db_Sql"/>
+		</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--根据条件查询列表开始-->
+	<select id="selectListByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>
+			<include refid="Base_Where_Sql"/>
+		</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--根据条件查询列表开始-->
+	<select id="list" parameterType="com.wdk.permissions.model.SysMenus" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>
+			<include refid="Base_Where_Sql"/>
+		</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--新增表数据开始-->
+	<insert id="insert" parameterType="com.wdk.permissions.model.SysMenus">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		insert into sys_menus (
+			name,url,host,
+			parent,parents,remark,
+			create_time,update_time
+		)
+		values (
+			
+			#{name,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{host,jdbcType=VARCHAR},
+			#{parent,jdbcType=INTEGER},#{parents,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP}
+		)
+	
+	</insert>
+	<!--新增表数据结束-->
+	<!--新增表不为空数据开始-->
+	<insert id="insertSelective" parameterType="com.wdk.permissions.model.SysMenus">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		insert into sys_menus (
+		<!--菜单名称-->
+		<if test="name != null and name != ''">
+			name=#{name,jdbcType=VARCHAR},
+		</if>
+		<!--菜单地址-->
+		<if test="url != null and url != ''">
+			url=#{url,jdbcType=VARCHAR},
+		</if>
+		<!--所属服务器-->
+		<if test="host != null and host != ''">
+			host=#{host,jdbcType=VARCHAR},
+		</if>
+		<!--父节点-->
+		<if test="parent != null">
+			parent,
+		</if>
+		<!--所有父节点-->
+		<if test="parents != null and parents != ''">
+			parents=#{parents,jdbcType=VARCHAR},
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			remark=#{remark,jdbcType=VARCHAR},
+		</if>
+		<!--创建时间-->
+		<if test="createTime != null">
+			create_time,
+		</if>
+		<!--更新时间-->
+		<if test="updateTime != null">
+			update_time,
+		</if>
+		)
+		values (
+		<!--菜单名称-->
+		<if test="name != null and name != ''">
+			name=#{name,jdbcType=VARCHAR},
+		</if>
+		<!--菜单地址-->
+		<if test="url != null and url != ''">
+			url=#{url,jdbcType=VARCHAR},
+		</if>
+		<!--所属服务器-->
+		<if test="host != null and host != ''">
+			host=#{host,jdbcType=VARCHAR},
+		</if>
+		<!--父节点-->
+		<if test="parent != null">
+			#{parent,jdbcType=INTEGER},
+		</if>
+		<!--所有父节点-->
+		<if test="parents != null and parents != ''">
+			parents=#{parents,jdbcType=VARCHAR},
+		</if>
+		<!--备注-->
+		<if test="remark != null and remark != ''">
+			remark=#{remark,jdbcType=VARCHAR},
+		</if>
+		<!--创建时间-->
+		<if test="createTime != null">
+			#{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<!--更新时间-->
+		<if test="updateTime != null">
+			#{updateTime,jdbcType=TIMESTAMP},
+		</if>
+		)
+	
+	</insert>
+	<!--新增表不为空数据结束-->
+	<!--批量新增表数据开始-->
+	<insert id="batchInsert" parameterType="java.util.List">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		<if test="list != null and list.size != 0">
+			insert into sys_menus (
+				name,url,host,
+				parent,parents,remark,
+				create_time,update_time
+			)
+			values
+			<foreach collection="list" item="item" index="index" separator=",">
+				(
+				#{item.name,jdbcType=VARCHAR},#{item.url,jdbcType=VARCHAR},#{item.host,jdbcType=VARCHAR},
+				#{item.parent,jdbcType=INTEGER},#{item.parents,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},#{item.updateTime,jdbcType=TIMESTAMP}
+				)
+			</foreach>
+		</if>
+	</insert>
+	<!--批量新增表数据结束-->
+	<!--根据条件查询列表开始-->
+	<select id="selectByPrimaryKey" parameterType="com.wdk.permissions.model.SysMenus" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Sql"/>
+		from  
+		<include refid="Base_Tables_Sql"/>
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</select>
+	<!--根据条件查询列表结束-->
+	<!--根据主键更新数据开始-->
+	<update id="updateByPrimaryKey" parameterType="com.wdk.permissions.model.SysMenus">
+		update sys_menus
+		set  
+			name=#{name,jdbcType=VARCHAR},
+			url=#{url,jdbcType=VARCHAR},
+			host=#{host,jdbcType=VARCHAR},
+			parent=#{parent,jdbcType=INTEGER},
+			parents=#{parents,jdbcType=VARCHAR},
+			remark=#{remark,jdbcType=VARCHAR},
+			create_time=#{createTime,jdbcType=TIMESTAMP},
+			update_time=#{updateTime,jdbcType=TIMESTAMP}
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</update>
+	<!--根据主键更新数据结束-->
+	<!--根据主键更新不为空数据开始-->
+	<!--系统菜单路径更新不为空-->
+	<update id="updateSelectiveByPrimaryKey" parameterType="com.wdk.permissions.model.SysMenus">
+		update sys_menus
+		<set>
+			<!--菜单名称-->
+			<if test="name != null and name != ''">
+				name=#{name,jdbcType=VARCHAR},
+			</if>
+			<!--菜单地址-->
+			<if test="url != null and url != ''">
+				url=#{url,jdbcType=VARCHAR},
+			</if>
+			<!--所属服务器-->
+			<if test="host != null and host != ''">
+				host=#{host,jdbcType=VARCHAR},
+			</if>
+			<!--父节点-->
+			<if test="parent != null">
+				parent=#{parent,jdbcType=INTEGER},
+			</if>
+			<!--所有父节点-->
+			<if test="parents != null and parents != ''">
+				parents=#{parents,jdbcType=VARCHAR},
+			</if>
+			<!--备注-->
+			<if test="remark != null and remark != ''">
+				remark=#{remark,jdbcType=VARCHAR},
+			</if>
+			<!--创建时间-->
+			<if test="createTime != null">
+				create_time=#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<!--更新时间-->
+			<if test="updateTime != null">
+				update_time=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<!--主键查询-->
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</update>
+	<!--根据主键更新不为空数据结束-->
+	<!--根据主键存在就更新，不存在就新增开始-->
+	<!--系统菜单路径批量新增，存在就更新，不存在就插入-->
+	<insert id="batchInsertUpdate" parameterType="java.util.List">
+		<selectKey keyProperty="id" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
+		<if test="list !=null and list.size != 0">
+			insert into  sys_menus(
+				name,url,host,
+				parent,parents,remark,
+				create_time,update_time
+			)
+			values 
+ 			<foreach collection="list" item="item" index="index" separator=",">
+				(
+				#{item.name,jdbcType=VARCHAR},#{item.url,jdbcType=VARCHAR},#{item.host,jdbcType=VARCHAR},
+				#{item.parent,jdbcType=INTEGER},#{item.parents,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},#{item.updateTime,jdbcType=TIMESTAMP})
+			</foreach>
+				ON DUPLICATE KEY UPDATE
+				name=#{name,jdbcType=VARCHAR},
+				url=#{url,jdbcType=VARCHAR},
+				host=#{host,jdbcType=VARCHAR},
+				parent=#{parent,jdbcType=INTEGER},
+				parents=#{parents,jdbcType=VARCHAR},
+				remark=#{remark,jdbcType=VARCHAR},
+				create_time=#{createTime,jdbcType=TIMESTAMP},
+				update_time=#{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</insert>
+	<!--根据主键存在就更新，不存在就新增结束-->
+	<!--批量更新开始-->
+	<update id="batchUpdate">
+		<if test="list != null and list.size != 0">
+			update sys_menus
+			<trim prefix="set" suffixOverrides=",">
+				<!--菜单名称-->
+				<trim prefix=" name = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.name!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.name,jdbcType=VARCHAR}
+						</if>
+					</foreach>
+				</trim>
+				<!--菜单地址-->
+				<trim prefix=" url = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.url!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.url,jdbcType=VARCHAR}
+						</if>
+					</foreach>
+				</trim>
+				<!--所属服务器-->
+				<trim prefix=" host = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.host!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.host,jdbcType=VARCHAR}
+						</if>
+					</foreach>
+				</trim>
+				<!--父节点-->
+				<trim prefix=" parent = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.parent!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.parent,jdbcType=INTEGER}
+						</if>
+					</foreach>
+				</trim>
+				<!--所有父节点-->
+				<trim prefix=" parents = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.parents!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.parents,jdbcType=VARCHAR}
+						</if>
+					</foreach>
+				</trim>
+				<!--备注-->
+				<trim prefix=" remark = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.remark!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.remark,jdbcType=VARCHAR}
+						</if>
+					</foreach>
+				</trim>
+				<!--创建时间-->
+				<trim prefix=" createTime = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.createTime!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.createTime,jdbcType=TIMESTAMP}
+						</if>
+					</foreach>
+				</trim>
+				<!--更新时间-->
+				<trim prefix=" updateTime = case " suffix="end,">
+					<foreach collection="list" item="item" index="index">
+						<if test="item.updateTime!=null">
+							when id=#{item.id,jdbcType=INTEGER}
+							then #{item.updateTime,jdbcType=TIMESTAMP}
+						</if>
+					</foreach>
+				</trim>
+			</trim>
+			<where>
+				<foreach collection="list" separator="or" item="item" index="index">
+					id=#{item.id,jdbcType=INTEGER}
+				</foreach>
+			</where>
+		</if>
+	</update>
+	<!--批量更新结束-->
+	<!--删除表数据开始-->
+	<delete id="deleteByPrimaryKey" parameterType="java.util.Map">
+		delete from sys_menus
+		<!--主键查询-->
+		<where>id=#{id,jdbcType=INTEGER}</where>
+	</delete>
+	<!--删除表数据结束-->
+	<!--删除表数据开始-->
+	<delete id="deleteBySelect" parameterType="com.wdk.permissions.model.SysMenus">
+		delete from sys_menus
+		<where>
+			<include refid="Base_Where_Sql"/>
+		</where>
+	</delete>
+	<!--删除表数据结束-->
+</mapper>
